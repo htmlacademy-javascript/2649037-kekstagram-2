@@ -1,4 +1,4 @@
-export default () => {
+export const getPhotoData = () => {
   const photoDescriptions = [
     'Закат на море',
     'Горный пейзаж',

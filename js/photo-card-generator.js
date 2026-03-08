@@ -1,5 +1,5 @@
 import {getRandomInt} from './util.js';
-import getPhotoData from './data.js';
+import {getPhotoData} from './data.js';
 
 // объявляем константы, переменные
 const PHOTO_COUNT = 25;
@@ -57,7 +57,7 @@ const addPhotos = () => {
   }
 };
 
-export default () => {
+export const createPhotoCard = () => {
   addPhotos();
   return photosDataBase;
 };
