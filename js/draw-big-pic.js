@@ -1,25 +1,32 @@
+import { renderComments } from './render-comments';
+
 
 const bigPictureContainer = document.querySelector('.big-picture');
-const buttonClose = document.querySelector('.big-picture__cancel');
+const buttonCancel = document.querySelector('.big-picture__cancel');
 
-const closeContainer = () => {
+const onButtonCancelClick = () => {
   bigPictureContainer.classList.toggle('hidden');
   document.body.classList.toggle('modal-open');
-  document.removeEventListener('keydown', onESC);
+  document.removeEventListener('keydown', onDocumentEscKeyDown);
 };
 
-function onESC (evt) {
+function onDocumentEscKeyDown (evt) {
   if(evt.key === 'Escape'){
-    closeContainer();
+    onButtonCancelClick();
   }
 }
 
 const drawBigPicture = function (pictureData){
   bigPictureContainer.classList.toggle('hidden');
+
   //заполняем данными
   bigPictureContainer.querySelector('.big-picture__img img').src = pictureData.url;
   bigPictureContainer.querySelector('.likes-count').textContent = pictureData.likes;
   bigPictureContainer.querySelector('.social__caption').textContent = pictureData.description;
+
+  //добавляем комментарии
+  renderComments(pictureData.comments);
+
   // need also social__comment-shown-count
   bigPictureContainer.querySelector('.social__comment-total-count').textContent = pictureData.comments.length;
 
@@ -27,13 +34,13 @@ const drawBigPicture = function (pictureData){
   bigPictureContainer.querySelector('.social__comment-count').classList.add('hidden');
   bigPictureContainer.querySelector('.comments-loader').classList.add('hidden');
 
-  //убираем прокрутку
+  //блокируем прокрутку
   document.body.classList.toggle('modal-open');
 
-  //добавляем событие на документ
-  document.addEventListener('keydown', onESC);
+  //добавляем обработчик Esc
+  document.addEventListener('keydown', onDocumentEscKeyDown);
 };
 
-buttonClose.addEventListener('click', closeContainer);
+buttonCancel.addEventListener('click', onButtonCancelClick);
 
 export {drawBigPicture};
