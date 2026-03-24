@@ -25,14 +25,7 @@ const drawBigPicture = function (pictureData){
   bigPictureContainer.querySelector('.social__caption').textContent = pictureData.description;
 
   //добавляем комментарии
-  renderComments(pictureData.comments);
-
-  // need also social__comment-shown-count
-  bigPictureContainer.querySelector('.social__comment-total-count').textContent = pictureData.comments.length;
-
-  //скрываем по заданию
-  bigPictureContainer.querySelector('.social__comment-count').classList.add('hidden');
-  bigPictureContainer.querySelector('.comments-loader').classList.add('hidden');
+  renderComments(pictureData.comments, true);
 
   //блокируем прокрутку
   document.body.classList.toggle('modal-open');

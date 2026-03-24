@@ -4,6 +4,7 @@ import {getPhotoData} from './data.js';
 // объявляем константы, переменные
 const PHOTO_COUNT = 25;
 const COMMENTS_MAX_COUNT = 30;
+const MAX_MESSAGE_COUNT = 2;
 const Likes = {
   MIN: 15,
   MAX: 200
@@ -19,7 +20,7 @@ let commentId = 0;
 // описываем функции добавления комментариев.
 const getMessage = () => {
   let message = '';
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < MAX_MESSAGE_COUNT; i++) {
     const commentsDataIndex = getRandomInt(0, photoData.commentsData.length - 1);
     if(message !== photoData.commentsData[commentsDataIndex]) { //если такое сообщение уже есть, то будет одно, если нет - то два.
       message += photoData.commentsData[commentsDataIndex];

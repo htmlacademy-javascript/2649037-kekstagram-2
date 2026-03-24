@@ -1,10 +1,15 @@
-const SOCIAL_COMMENT_COUNT = 5;
+const SOCIAL_COMMENT_STEP = 5;
 
-const socialComments = document.querySelector('.social__comments');
-const socialFragment = document.createDocumentFragment();
-const socialTemplate = socialComments.querySelector('.social__comment');
+const bigPictureContainer = document.querySelector('.big-picture');
+const socialComments = bigPictureContainer.querySelector('.social__comments');
+const socialTemplate = bigPictureContainer.querySelector('.social__comment');
+const commentsCountShown = bigPictureContainer.querySelector('.social__comment-shown-count');
+const commentsTotal = bigPictureContainer.querySelector('.social__comment-total-count');
+const loadButton = bigPictureContainer.querySelector('.social__comments-loader');
 
-let commentsCount = SOCIAL_COMMENT_COUNT;
+let receivedComments = []; //сохраняем комментарии для перерисовки.
+let commentsCount = SOCIAL_COMMENT_STEP;
+
 
 const renderComment = (comment) => {
   const socialComment = socialTemplate.cloneNode(true);
@@ -15,7 +20,13 @@ const renderComment = (comment) => {
   return socialComment;
 };
 
-const renderComments = (currentComments) => {
+const renderComments = (currentComments, reset) => {
+  if (reset) {
+    commentsCount = SOCIAL_COMMENT_STEP;
+  }
+  //для каждой отрисовки комментариев создаем свой контейнер
+  const socialFragment = document.createDocumentFragment();
+
   socialComments.innerHTML = '';
 
   //определяем сколько комментариев показываем если меньше комментариев по умолчанию.
@@ -24,8 +35,28 @@ const renderComments = (currentComments) => {
   for (let i = 0; i < commentsCount; i++) {
     socialFragment.append(renderComment(currentComments[i]));
   }
+
+  //заполняем шапку с количеством комментариев.
+  commentsCountShown.textContent = commentsCount;
+  commentsTotal.textContent = currentComments.length;
+
+  //проверяем нужно ли показывать кнопку "еще"
+  if(commentsCount >= currentComments.length) {
+    loadButton.classList.add('hidden');
+  } else {
+    loadButton.classList.remove('hidden');
+    receivedComments = currentComments;
+  }
+
   socialComments.append(socialFragment);
 };
 
+const showMoreComments = (evt) => {
+  evt.preventDefault();
+  commentsCount += SOCIAL_COMMENT_STEP;
+  renderComments(receivedComments, false);
+};
+
+loadButton.addEventListener('click', showMoreComments);
 
 export {renderComments};
