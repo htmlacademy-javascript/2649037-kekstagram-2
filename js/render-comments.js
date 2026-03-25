@@ -10,7 +10,6 @@ const loadButton = bigPictureContainer.querySelector('.social__comments-loader')
 let receivedComments = []; //сохраняем комментарии для перерисовки.
 let commentsCount = SOCIAL_COMMENT_STEP;
 
-
 const renderComment = (comment) => {
   const socialComment = socialTemplate.cloneNode(true);
   socialComment.querySelector('.social__picture').src = comment.avatar;
@@ -50,11 +49,11 @@ const renderComments = (currentComments, currentCount = SOCIAL_COMMENT_STEP) => 
   socialComments.append(socialFragment);
 };
 
-const showMoreComments = (evt) => {
+const onLoadButtonClick = (evt) => {
   evt.preventDefault();
   renderComments(receivedComments, commentsCount += SOCIAL_COMMENT_STEP);
 };
 
-loadButton.addEventListener('click', showMoreComments);
+loadButton.addEventListener('click', onLoadButtonClick);
 
 export {renderComments};
