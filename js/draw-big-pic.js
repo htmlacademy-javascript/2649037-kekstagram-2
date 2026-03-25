@@ -25,7 +25,7 @@ const drawBigPicture = function (pictureData){
   bigPictureContainer.querySelector('.social__caption').textContent = pictureData.description;
 
   //добавляем комментарии
-  renderComments(pictureData.comments, true);
+  renderComments(pictureData.comments);
 
   //блокируем прокрутку
   document.body.classList.toggle('modal-open');

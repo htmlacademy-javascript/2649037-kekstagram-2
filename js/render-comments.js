@@ -20,10 +20,9 @@ const renderComment = (comment) => {
   return socialComment;
 };
 
-const renderComments = (currentComments, reset) => {
-  if (reset) {
-    commentsCount = SOCIAL_COMMENT_STEP;
-  }
+const renderComments = (currentComments, currentCount = SOCIAL_COMMENT_STEP) => {
+  commentsCount = currentCount;
+
   //для каждой отрисовки комментариев создаем свой контейнер
   const socialFragment = document.createDocumentFragment();
 
@@ -53,8 +52,7 @@ const renderComments = (currentComments, reset) => {
 
 const showMoreComments = (evt) => {
   evt.preventDefault();
-  commentsCount += SOCIAL_COMMENT_STEP;
-  renderComments(receivedComments, false);
+  renderComments(receivedComments, commentsCount += SOCIAL_COMMENT_STEP);
 };
 
 loadButton.addEventListener('click', showMoreComments);
