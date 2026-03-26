@@ -1,4 +1,4 @@
-import {drawBigPicture} from './draw-big-pic';
+import {drawBigPicture} from './draw-big-pic.js';
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
 const pictureFragment = document.createDocumentFragment();
