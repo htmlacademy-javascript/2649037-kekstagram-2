@@ -1,2 +1,3 @@
-import {pictureDraw} from './mini-pic-draw';
-pictureDraw();
+import {createPhotoCard} from './photo-card-generator.js';
+import { renderPhotos } from './draw-mini-pic.js';
+renderPhotos(createPhotoCard());
