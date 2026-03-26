@@ -1,4 +1,4 @@
-import { renderComments } from './render-comments';
+import { renderComments } from './render-comments.js';
 
 
 const bigPictureContainer = document.querySelector('.big-picture');
