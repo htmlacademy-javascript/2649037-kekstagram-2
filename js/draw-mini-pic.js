@@ -15,7 +15,6 @@ const renderPhoto = (pictureData) => {
   pictureImg.alt = pictureData.description;
   picture.querySelector('.picture__likes').textContent = pictureData.likes;
   picture.querySelector('.picture__comments').textContent = pictureData.comments.length;
-
   pictureImg.addEventListener('click', () => drawBigPicture(pictureData));
   return picture;
 };
@@ -24,7 +23,6 @@ const renderPhotos = (pictures) => {
   pictures?.forEach((picture) => {
     pictureFragment.append(renderPhoto(picture));
   });
-
   picturesContainer.append(pictureFragment);
 };
 
