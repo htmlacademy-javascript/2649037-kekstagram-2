@@ -1,6 +1,5 @@
 import { renderComments } from './render-comments.js';
 
-
 const bigPictureContainer = document.querySelector('.big-picture');
 const buttonCancel = document.querySelector('.big-picture__cancel');
 
