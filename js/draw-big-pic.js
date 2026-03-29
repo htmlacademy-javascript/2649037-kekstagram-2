@@ -19,8 +19,7 @@ const drawBigPicture = function (pictureData){
   openModal(bigPictureContainer);
 };
 
-buttonCancel.addEventListener('click', () => {
-  closeModal(bigPictureContainer);
-});
+const onButtonCancelClick = closeModal(bigPictureContainer);
+buttonCancel.addEventListener('click', onButtonCancelClick);
 
 export {drawBigPicture};
