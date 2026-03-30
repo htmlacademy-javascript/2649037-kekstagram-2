@@ -10,6 +10,14 @@ const loadButton = bigPictureContainer.querySelector('.social__comments-loader')
 let receivedComments = []; //сохраняем комментарии для перерисовки.
 let commentsCount = SOCIAL_COMMENT_STEP;
 
+/**
+ * Создаёт DOM‑элемент комментария на основе данных.
+ * @param {Object} comment — объект с данными комментария.
+ * @param {string} comment.avatar — путь к аватару пользователя.
+ * @param {string} comment.name — имя автора комментария.
+ * @param {string} comment.message — текст комментария.
+ * @returns {HTMLElement} — готовый DOM‑элемент комментария.
+ */
 const renderComment = (comment) => {
   const socialComment = socialTemplate.cloneNode(true);
   socialComment.querySelector('.social__picture').src = comment.avatar;
@@ -18,6 +26,15 @@ const renderComment = (comment) => {
   return socialComment;
 };
 
+/**
+ * Отрисовывает список комментариев порциями.
+ * @param {Object[]} currentComments — массив комментариев.
+ * @param {Object} currentComments[].avatar — путь к аватару.
+ * @param {Object} currentComments[].name — имя автора.
+ * @param {Object} currentComments[].message — текст комментария.
+ * @param {number} [currentCount=SOCIAL_COMMENT_STEP] — количество комментариев,
+ * которое нужно показать при текущем рендере.
+ */
 const renderComments = (currentComments, currentCount = SOCIAL_COMMENT_STEP) => {
   commentsCount = currentCount;
 
