@@ -27,7 +27,6 @@ const renderPhotos = (pictures) => {
   pictures?.forEach((picture) => {
     pictureFragment.append(renderPhoto(picture));
   });
-
   picturesContainer.append(pictureFragment);
 };
 
