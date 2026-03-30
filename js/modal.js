@@ -1,11 +1,15 @@
 let activeModal = null;
-
+const commentTextArea = document.querySelector('.text__description');
 /**
  * Закрывает активное модальное окно при нажатии клавиши Escape.
  * @param {KeyboardEvent} evt — объект события клавиатуры.
  */
 function onEscKeyDown(evt) {
   if (evt.key === 'Escape' && activeModal) {
+    // если фокус в textarea — ничего не делаем
+    if (document.activeElement === commentTextArea) {
+      return;
+    }
     closeModal(activeModal);
   }
 }

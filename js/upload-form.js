@@ -9,10 +9,10 @@ const uploadButtonCancel = uploadForm.querySelector('.img-upload__cancel');
 const onFileInputChange = () => openModal(overlay);
 fileInput.addEventListener('change', onFileInputChange);
 
-const onLoadButtonClick = () => {
+const onLoadButtonCancelClick = () => {
   fileInput.value = '';
   closeModal(overlay);
 };
 
-uploadButtonCancel.addEventListener('click', onLoadButtonClick);
+uploadButtonCancel.addEventListener('click', onLoadButtonCancelClick);
 
