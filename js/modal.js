@@ -1,13 +1,15 @@
-let activeModal = null;
-const commentTextArea = document.querySelector('.text__description');
+import { uploadForm, fileInput } from './upload-form.js';
+
+let activeModal = '';
 /**
  * Закрывает активное модальное окно при нажатии клавиши Escape.
  * @param {KeyboardEvent} evt — объект события клавиатуры.
  */
 function onEscKeyDown(evt) {
   if (evt.key === 'Escape' && activeModal) {
-    // если фокус в textarea — ничего не делаем
-    if (document.activeElement === commentTextArea) {
+    // если фокус в поле комментария или хештега — ничего не делаем
+    if (evt.target.classList.contains('text__description') ||
+        evt.target.classList.contains('text__hashtags')) {
       return;
     }
     closeModal(activeModal);
@@ -37,8 +39,9 @@ function closeModal(modalElement) {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeyDown);
-  //Сбрасываем выбранный файл.
-  document.querySelector('.img-upload__input').value = '';
+  //Сброс
+  fileInput.value = '';
+  uploadForm.reset();
   activeModal = null;
 }
 
