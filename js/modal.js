@@ -1,4 +1,5 @@
 import { uploadForm, fileInput } from './upload-form.js';
+import { scaleReset } from './img-scale.js';
 
 let activeModal = '';
 /**
@@ -42,6 +43,8 @@ function closeModal(modalElement) {
   //Сброс
   fileInput.value = '';
   uploadForm.reset();
+  uploadForm.querySelector('');
+  scaleReset();
   activeModal = null;
 }
 
