@@ -16,5 +16,4 @@ const uploadButtonCancelClick = () => closeModal(overlay);
 fileInput.addEventListener('change', onFileInputChange);
 uploadButtonCancel.addEventListener('click', uploadButtonCancelClick);
 
-
 export {uploadForm, fileInput};

@@ -25,6 +25,7 @@ const applyScale = (isPlus) => {
     uploadImg.style.transform = `scale(${scale / 100})`;
   }
 };
+
 const scaleReset = () => {
   scaleValue.value = SCALE.DEFAULT;
 };
@@ -34,4 +35,4 @@ const onClickScalePlus = () => applyScale(true);
 scaleMinus.addEventListener('click', onClickScaleMinus);
 scalePlus.addEventListener('click', onClickScalePlus);
 
-export {scaleReset};
+export {scaleReset, uploadImg};
