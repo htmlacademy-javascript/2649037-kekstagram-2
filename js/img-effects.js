@@ -1,9 +1,6 @@
 import { uploadForm } from './upload-form.js';
 import { uploadImg } from './img-scale.js';
 
-const slider = uploadForm.querySelector('.effect-level__slider');
-const sliderContainer = uploadForm.querySelector('.img-upload__effect-level');
-const effectsList = uploadForm.querySelector('.effects__list');
 const EFFECTS = {
   none: {
     filter: () => 'none',
@@ -42,6 +39,11 @@ const EFFECTS = {
     step: 0.1,
   },
 };
+const slider = uploadForm.querySelector('.effect-level__slider');
+const sliderContainer = uploadForm.querySelector('.img-upload__effect-level');
+const effectsList = uploadForm.querySelector('.effects__list');
+const effectValue = uploadForm.querySelector('.effect-level__value');
+
 
 let effectName = 'none';
 let effect = EFFECTS[effectName];
@@ -54,10 +56,15 @@ noUiSlider.create(slider, {
   start: 100,
   step: 1,
   connect: 'lower',
+  format: {
+    to: (value) => value,
+    from: (value) => parseFloat(value)
+  },
 });
 
 const onUpdateSlider = () => {
   const currentSliderValue = slider.noUiSlider.get();
+  effectValue.value = currentSliderValue;
   uploadImg.style.filter = effect.filter(currentSliderValue);
 };
 
@@ -85,9 +92,11 @@ effectsList.addEventListener('change', (evt) => {
       step: effect.step,
     });
     sliderContainer.classList.remove('hidden');
+
     // применяем значение на старте
     uploadImg.style.filter = effect.filter(effect.start);
     slider.noUiSlider.set(effect.start);
+    effectValue.value = effect.start;
   } else {
     effectReset();
   }
