@@ -1,5 +1,6 @@
 import { uploadForm, fileInput } from './upload-form.js';
 import { scaleReset } from './img-scale.js';
+import { effectReset } from './img-effects.js';
 
 let activeModal = '';
 /**
@@ -15,6 +16,13 @@ function onEscKeyDown(evt) {
     }
     closeModal(activeModal);
   }
+}
+
+function resetForm() {
+  fileInput.value = '';
+  uploadForm.reset();
+  scaleReset();
+  effectReset();
 }
 
 /**
@@ -41,11 +49,11 @@ function closeModal(modalElement) {
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeyDown);
   //Сброс
-  fileInput.value = '';
-  uploadForm.reset();
-  uploadForm.querySelector('');
-  scaleReset();
+  if(activeModal.classList.contains('img-upload__overlay')){
+    resetForm();
+  }
   activeModal = null;
 }
 
-export { openModal, closeModal };
+
+export { openModal, closeModal, resetForm};

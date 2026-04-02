@@ -66,8 +66,8 @@ const effectReset = () => {
   sliderContainer.classList.add('hidden');
   effectName = 'none';
   effect = EFFECTS[effectName];
-  onUpdateSlider();
-
+  uploadImg.style.filter = 'none';
+  slider.noUiSlider.set(effect.start);
 };
 
 slider.noUiSlider.on('update', onUpdateSlider);
