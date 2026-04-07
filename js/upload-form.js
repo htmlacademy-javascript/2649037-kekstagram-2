@@ -1,5 +1,5 @@
 import { openModal, closeModal } from './modal.js';
-import { pristine } from './validation.js';
+
 
 const uploadForm = document.querySelector('.img-upload__form');
 const fileInput = uploadForm.querySelector('.img-upload__input');
@@ -7,11 +7,10 @@ const overlay = uploadForm.querySelector('.img-upload__overlay');
 const uploadButtonCancel = uploadForm.querySelector('.img-upload__cancel');
 
 const onFileInputChange = () => {
-  pristine.reset();
   openModal(overlay);
 };
 
-const uploadButtonCancelClick = () => closeModal(overlay);
+const uploadButtonCancelClick = () => closeModal();
 
 fileInput.addEventListener('change', onFileInputChange);
 uploadButtonCancel.addEventListener('click', uploadButtonCancelClick);

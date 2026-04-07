@@ -1,6 +1,8 @@
 import { uploadForm, fileInput } from './upload-form.js';
 import { scaleReset } from './img-scale.js';
 import { effectReset } from './img-effects.js';
+import { unblockSubmitButton } from './validation.js';
+import { pristine } from './validation.js';
 
 let activeModal = '';
 /**
@@ -23,6 +25,8 @@ function resetForm() {
   uploadForm.reset();
   scaleReset();
   effectReset();
+  pristine.reset();
+  unblockSubmitButton();
 }
 
 /**
@@ -44,8 +48,12 @@ function openModal(modalElement) {
  * и удаляет обработчик закрытия по Esc.
  * @param {HTMLElement} modalElement — DOM‑элемент модального окна.
  */
-function closeModal(modalElement) {
-  modalElement.classList.add('hidden');
+function closeModal() {
+
+  if (!activeModal){
+    return;
+  }
+  activeModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeyDown);
   //Сброс

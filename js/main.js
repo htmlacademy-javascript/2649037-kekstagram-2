@@ -1,8 +1,20 @@
-import {createPhotoCard} from './photo-card-generator.js';
 import { renderPhotos } from './draw-mini-pic.js';
 import './upload-form.js';
 import './validation.js';
 import './img-scale.js';
 import './img-effects.js';
-renderPhotos(createPhotoCard());
+import { getData } from './server.js';
+import { closeModal } from './modal.js';
+import { setUserFormSubmit } from './validation.js';
+
+getData().then((photos) => {
+  renderPhotos(photos);
+})
+  .catch((err) => {
+    // showAlert(err.message);
+    alert(err);
+  }
+  );
+
+setUserFormSubmit(closeModal);
 
