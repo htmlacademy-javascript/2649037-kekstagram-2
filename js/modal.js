@@ -1,16 +1,13 @@
-import { uploadForm, fileInput } from './upload-form.js';
+import { uploadForm, fileInput,unblockSubmitButton } from './upload-form.js';
 import { scaleReset } from './img-scale.js';
 import { effectReset } from './img-effects.js';
-import { unblockSubmitButton } from './validation.js';
 import { pristine } from './validation.js';
+import { isEsc } from './util.js';
 
 let activeModal = '';
-/**
- * Закрывает активное модальное окно при нажатии клавиши Escape.
- * @param {KeyboardEvent} evt — объект события клавиатуры.
- */
+
 function onEscKeyDown(evt) {
-  if (evt.key === 'Escape' && activeModal) {
+  if (isEsc && activeModal) {
     // если фокус в поле комментария или хештега — ничего не делаем
     if (evt.target.classList.contains('text__description') ||
         evt.target.classList.contains('text__hashtags')) {
@@ -29,12 +26,6 @@ function resetForm() {
   unblockSubmitButton();
 }
 
-/**
- * Открывает модальное окно:
- * удаляет класс hidden, блокирует прокрутку страницы
- * и добавляет обработчик закрытия по Esc.
- * @param {HTMLElement} modalElement — DOM‑элемент модального окна.
- */
 function openModal(modalElement) {
   activeModal = modalElement;
   modalElement.classList.remove('hidden');
@@ -42,14 +33,7 @@ function openModal(modalElement) {
   document.addEventListener('keydown', onEscKeyDown);
 }
 
-/**
- * Закрывает модальное окно:
- * добавляет класс hidden, разблокирует прокрутку
- * и удаляет обработчик закрытия по Esc.
- * @param {HTMLElement} modalElement — DOM‑элемент модального окна.
- */
 function closeModal() {
-
   if (!activeModal){
     return;
   }
@@ -62,6 +46,5 @@ function closeModal() {
   }
   activeModal = null;
 }
-
 
 export { openModal, closeModal, resetForm};

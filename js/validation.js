@@ -1,17 +1,11 @@
-import { sendData } from './server.js';
-
 const HASH_TAGS_MAX = 5;
 const HASH_TAGS_SYMBOLS_MAX = 20;
 const COMMENT_LENGTH_MAX = 140;
-const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Публикую...'
-};
 
 const uploadForm = document.querySelector('.img-upload__form');
 const hashTagInput = uploadForm.querySelector('.text__hashtags');
 const commentTextArea = uploadForm.querySelector('.text__description');
-const submitButton = uploadForm.querySelector('.img-upload__submit');
+
 
 //настраиваем Пристин
 let errorMessage = '';
@@ -82,44 +76,4 @@ pristine.addValidator(
 );
 
 
-const submitButtonState = () => {
-  const isValid = pristine.validate();
-  submitButton.disabled = !isValid;
-};
-
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
-};
-
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
-};
-
-const setUserFormSubmit = (onSuccess) => {
-  uploadForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    const isValid = pristine.validate();
-    if (isValid) {
-      blockSubmitButton();
-      sendData(new FormData(evt.target))
-        .then(onSuccess)
-        .catch((err) => {
-          // showAlert(err.message);
-          alert(err);
-        }
-        )
-        .finally(unblockSubmitButton);
-    }
-  });
-};
-
-const onInputHashTagInput = () => submitButtonState();
-const onInputTextAreaInput = () => submitButtonState();
-
-hashTagInput.addEventListener('input', onInputHashTagInput);
-commentTextArea.addEventListener('input', onInputTextAreaInput);
-
-export { pristine, setUserFormSubmit, unblockSubmitButton };
+export { pristine, hashTagInput, commentTextArea };
