@@ -5,17 +5,17 @@ const COMMENT_LENGTH_MAX = 140;
 const uploadForm = document.querySelector('.img-upload__form');
 const hashTagInput = uploadForm.querySelector('.text__hashtags');
 const commentTextArea = uploadForm.querySelector('.text__description');
-const submitButton = uploadForm.querySelector('.img-upload__submit');
 
+
+//настраиваем Пристин
+let errorMessage = '';
+const error = () => errorMessage;
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error'
 });
-
-let errorMessage = '';
-const error = () => errorMessage;
 
 function validateHashTags(value) {
   errorMessage = '';
@@ -63,7 +63,6 @@ function validateHashTags(value) {
   });
 }
 
-
 pristine.addValidator(
   hashTagInput,
   validateHashTags,
@@ -76,21 +75,5 @@ pristine.addValidator(
   `Комментарий не должен превышать ${COMMENT_LENGTH_MAX} символов`
 );
 
-uploadForm.addEventListener('submit', (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-});
 
-
-function submitButtonState() {
-  const isValid = pristine.validate();
-  submitButton.disabled = !isValid;
-}
-
-const onInputHashTag = () => submitButtonState();
-const onInputTextArea = () => submitButtonState();
-
-hashTagInput.addEventListener('input', onInputHashTag);
-commentTextArea.addEventListener('input', onInputTextArea);
-export { pristine };
+export { pristine, hashTagInput, commentTextArea };

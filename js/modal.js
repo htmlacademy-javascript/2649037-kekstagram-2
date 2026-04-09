@@ -1,14 +1,16 @@
-import { uploadForm, fileInput } from './upload-form.js';
+import { uploadForm, fileInput,unblockSubmitButton } from './upload-form.js';
 import { scaleReset } from './img-scale.js';
 import { effectReset } from './img-effects.js';
+import { pristine } from './validation.js';
+import { isEsc } from './util.js';
 
 let activeModal = '';
-/**
- * Закрывает активное модальное окно при нажатии клавиши Escape.
- * @param {KeyboardEvent} evt — объект события клавиатуры.
- */
+
+const enableFormEsc = () => document.addEventListener('keydown', onEscKeyDown);
+const disabledFormEsc = () => document.removeEventListener('keydown', onEscKeyDown);
+
 function onEscKeyDown(evt) {
-  if (evt.key === 'Escape' && activeModal) {
+  if (isEsc && activeModal) {
     // если фокус в поле комментария или хештега — ничего не делаем
     if (evt.target.classList.contains('text__description') ||
         evt.target.classList.contains('text__hashtags')) {
@@ -23,14 +25,10 @@ function resetForm() {
   uploadForm.reset();
   scaleReset();
   effectReset();
+  pristine.reset();
+  unblockSubmitButton();
 }
 
-/**
- * Открывает модальное окно:
- * удаляет класс hidden, блокирует прокрутку страницы
- * и добавляет обработчик закрытия по Esc.
- * @param {HTMLElement} modalElement — DOM‑элемент модального окна.
- */
 function openModal(modalElement) {
   activeModal = modalElement;
   modalElement.classList.remove('hidden');
@@ -38,14 +36,11 @@ function openModal(modalElement) {
   document.addEventListener('keydown', onEscKeyDown);
 }
 
-/**
- * Закрывает модальное окно:
- * добавляет класс hidden, разблокирует прокрутку
- * и удаляет обработчик закрытия по Esc.
- * @param {HTMLElement} modalElement — DOM‑элемент модального окна.
- */
-function closeModal(modalElement) {
-  modalElement.classList.add('hidden');
+function closeModal() {
+  if (!activeModal){
+    return;
+  }
+  activeModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeyDown);
   //Сброс
@@ -55,5 +50,4 @@ function closeModal(modalElement) {
   activeModal = null;
 }
 
-
-export { openModal, closeModal, resetForm};
+export { openModal, closeModal, resetForm, enableFormEsc, disabledFormEsc};
