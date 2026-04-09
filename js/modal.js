@@ -6,6 +6,9 @@ import { isEsc } from './util.js';
 
 let activeModal = '';
 
+const enableFormEsc = () => document.addEventListener('keydown', onEscKeyDown);
+const disabledFormEsc = () => document.removeEventListener('keydown', onEscKeyDown);
+
 function onEscKeyDown(evt) {
   if (isEsc && activeModal) {
     // если фокус в поле комментария или хештега — ничего не делаем
@@ -47,4 +50,4 @@ function closeModal() {
   activeModal = null;
 }
 
-export { openModal, closeModal, resetForm};
+export { openModal, closeModal, resetForm, enableFormEsc, disabledFormEsc};

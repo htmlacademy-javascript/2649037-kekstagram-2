@@ -1,4 +1,5 @@
 import { isEsc } from './util.js';
+import { enableFormEsc, disabledFormEsc } from './modal.js';
 
 const showLoadDataError = () => {
   const template = document.querySelector('#data-error')
@@ -13,6 +14,8 @@ const showLoadDataError = () => {
 };
 
 const showDataMessage = (state) => {
+  disabledFormEsc();
+  document.body.classList.add('modal-open');
   const template = document.querySelector(`#${state}`)
     .content.querySelector(`.${state}`);
 
@@ -35,6 +38,8 @@ const showDataMessage = (state) => {
 
   function closeMessage() {
     message.remove();
+    enableFormEsc();
+    document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', onEscKeyDown);
     document.removeEventListener('click', onOutsideClick);
   }
