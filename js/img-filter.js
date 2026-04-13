@@ -1,6 +1,6 @@
-import { getRandomInt } from './util';
-import { renderPhotos } from './draw-mini-pic';
-import { debounce } from './util';
+import { getRandomInt } from './util.js';
+import { renderPhotos } from './draw-mini-pic.js';
+import { debounce } from './util.js';
 
 const FILTER_RANDOM_COUNT = 10;
 const ID_DEFAULT = 'filter-default';
