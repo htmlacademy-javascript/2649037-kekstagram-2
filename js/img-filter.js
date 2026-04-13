@@ -1,15 +1,18 @@
 import { getRandomInt } from './util';
 import { renderPhotos } from './draw-mini-pic';
+import { debounce } from './util';
 
 const FILTER_RANDOM_COUNT = 10;
 const ID_DEFAULT = 'filter-default';
 const ID_DISCUSSED = 'filter-discussed';
 const ID_RANDOM = 'filter-random';
+const DEBOUNCE_TIME_DELAY = 500;
 
 const imgFilterContainer = document.querySelector('.img-filters');
 const filterButtons = document.querySelectorAll('.img-filters__button');
 let id = ID_DEFAULT;
 let photos = [];
+
 
 const getDefault = () => photos.slice();
 
@@ -52,6 +55,11 @@ const setImgFilter = (receivedPhotos) => {
   renderPhotos(getPhotos());
 };
 
+const debouncedRender = debounce(
+  () => renderPhotos(getPhotos()),
+  DEBOUNCE_TIME_DELAY
+);
+
 const onFilterContainerClick = (evt) => {
   if (!evt.target.classList.contains('img-filters__button')) {
     return;
@@ -62,7 +70,8 @@ const onFilterContainerClick = (evt) => {
   );
   evt.target.classList.add('img-filters__button--active');
 
-  renderPhotos(getPhotos());
+  debouncedRender();
+
 };
 
 
