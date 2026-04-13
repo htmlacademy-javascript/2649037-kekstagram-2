@@ -1,6 +1,8 @@
 import { isEsc } from './util.js';
 import { enableFormEsc, disabledFormEsc } from './modal.js';
 
+const DISPLAY_MESSAGE_TIME = 5000;
+
 const showLoadDataError = () => {
   const template = document.querySelector('#data-error')
     .content.querySelector('.data-error');
@@ -10,7 +12,7 @@ const showLoadDataError = () => {
 
   setTimeout(() => {
     message.remove();
-  }, 5000);
+  }, DISPLAY_MESSAGE_TIME);
 };
 
 const showDataMessage = (state) => {

@@ -24,6 +24,7 @@ const renderPhoto = (pictureData) => {
 };
 
 const renderPhotos = (pictures) => {
+  picturesContainer.querySelectorAll('.picture').forEach((el) => el.remove());
   pictures?.forEach((picture) => {
     pictureFragment.append(renderPhoto(picture));
   });
