@@ -1,8 +1,10 @@
-import { uploadForm, fileInput,unblockSubmitButton } from './upload-form.js';
+import { uploadForm, fileInput, unblockSubmitButton, previewImg } from './upload-form.js';
 import { scaleReset } from './img-scale.js';
 import { effectReset } from './img-effects.js';
 import { pristine } from './validation.js';
 import { isEsc } from './util.js';
+
+const PREVIEW_IMG_DEFAULT_SRC = 'img/upload-default-image.jpg';
 
 let activeModal = '';
 
@@ -13,7 +15,7 @@ function onEscKeyDown(evt) {
   if (isEsc && activeModal) {
     // если фокус в поле комментария или хештега — ничего не делаем
     if (evt.target.classList.contains('text__description') ||
-        evt.target.classList.contains('text__hashtags')) {
+      evt.target.classList.contains('text__hashtags')) {
       return;
     }
     closeModal(activeModal);
@@ -22,6 +24,10 @@ function onEscKeyDown(evt) {
 
 function resetForm() {
   fileInput.value = '';
+  if (previewImg.src.startsWith('blob:')) {
+    URL.revokeObjectURL(previewImg.src);
+  }
+  previewImg.src = PREVIEW_IMG_DEFAULT_SRC;
   uploadForm.reset();
   scaleReset();
   effectReset();
@@ -37,17 +43,17 @@ function openModal(modalElement) {
 }
 
 function closeModal() {
-  if (!activeModal){
+  if (!activeModal) {
     return;
   }
   activeModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeyDown);
   //Сброс
-  if(activeModal.classList.contains('img-upload__overlay')){
+  if (activeModal.classList.contains('img-upload__overlay')) {
     resetForm();
   }
   activeModal = null;
 }
 
-export { openModal, closeModal, resetForm, enableFormEsc, disabledFormEsc};
+export { openModal, closeModal, resetForm, enableFormEsc, disabledFormEsc };

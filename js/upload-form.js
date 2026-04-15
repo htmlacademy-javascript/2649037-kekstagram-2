@@ -2,7 +2,9 @@ import { openModal, closeModal } from './modal.js';
 import { pristine } from './validation.js';
 import { showDataMessage } from './data-messages.js';
 import { sendData } from './server-api.js';
+import { showLoadDataError } from './data-messages.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...'
@@ -15,6 +17,7 @@ const uploadButtonCancel = uploadForm.querySelector('.img-upload__cancel');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 const hashTagInput = uploadForm.querySelector('.text__hashtags');
 const commentTextArea = uploadForm.querySelector('.text__description');
+const previewImg = document.querySelector('.img-upload__preview img');
 
 //Настраиваем состояние кнопки отправки для разных условий
 const submitButtonState = () => {
@@ -54,8 +57,22 @@ const setUserFormSubmit = (onSuccess) => {
     }
   });
 };
-const onFileInputChange = () => openModal(overlay);
-const uploadButtonCancelClick = () => closeModal();
+
+//Функции обработчики событий
+const onFileInputChange = () => {
+  const file = fileInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((ext) => fileName.endsWith(ext));
+
+  if (matches) {
+    previewImg.src = URL.createObjectURL(file);
+    openModal(overlay);
+  } else {
+    showLoadDataError();
+  }
+};
+const onUploadButtonCancelClick = () => closeModal();
 const onInputHashTagInput = () => submitButtonState();
 const onInputTextAreaInput = () => submitButtonState();
 
@@ -63,6 +80,6 @@ const onInputTextAreaInput = () => submitButtonState();
 hashTagInput.addEventListener('input', onInputHashTagInput);
 commentTextArea.addEventListener('input', onInputTextAreaInput);
 fileInput.addEventListener('change', onFileInputChange);
-uploadButtonCancel.addEventListener('click', uploadButtonCancelClick);
+uploadButtonCancel.addEventListener('click', onUploadButtonCancelClick);
 
-export { uploadForm, fileInput, setUserFormSubmit, unblockSubmitButton };
+export { uploadForm, fileInput, setUserFormSubmit, unblockSubmitButton, previewImg };
