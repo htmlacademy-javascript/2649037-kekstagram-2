@@ -1,6 +1,6 @@
-import { getRandomInt } from './util.js';
 import { renderPhotos } from './draw-mini-pic.js';
-import { debounce } from './util.js';
+import { debounce, shuffleArray } from './util.js';
+
 
 const FILTER_RANDOM_COUNT = 10;
 const ID_DEFAULT = 'filter-default';
@@ -16,24 +16,12 @@ let photos = [];
 
 const getDefault = () => photos.slice();
 
-const getRandom = () => {
-  const photosCopy = photos.slice();
-  const result = [];
-  let index = 0;
-  const maxCount = Math.min(FILTER_RANDOM_COUNT, photosCopy.length);
-  for (let i = 0; i < maxCount; i++) {
-    index = getRandomInt(0, (photosCopy.length - 1));
-    result.push(photosCopy[index]);
-    photosCopy.splice(index, 1);
-  }
-
-  return result;
-};
+const getRandom = () => shuffleArray(photos.slice()).slice(0, FILTER_RANDOM_COUNT) ;
 
 const getDiscussed = () =>
   photos
     .slice()
-    .sort((a, b) => b.comments.length - a.comments.length);
+    .sort((firstElement, secondElement) => secondElement.comments.length - firstElement.comments.length);
 
 const getPhotos = () => {
   switch (id) {
