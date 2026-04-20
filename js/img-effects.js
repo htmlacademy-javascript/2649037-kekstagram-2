@@ -57,8 +57,15 @@ noUiSlider.create(slider, {
   step: 1,
   connect: 'lower',
   format: {
-    to: (value) => value,
-    from: (value) => parseFloat(value)
+    to: function (value) {
+      if (Number.isInteger(value)) {
+        return value.toFixed(0);
+      }
+      return value.toFixed(1);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
   },
 });
 
@@ -67,7 +74,6 @@ const onUpdateSlider = () => {
   effectValue.value = currentSliderValue;
   uploadImg.style.filter = effect.filter(currentSliderValue);
 };
-
 
 const effectReset = () => {
   sliderContainer.classList.add('hidden');
@@ -80,7 +86,8 @@ const effectReset = () => {
 slider.noUiSlider.on('update', onUpdateSlider);
 
 
-effectsList.addEventListener('change', (evt) => {
+const onEffectListChange = (evt) => {
+
   effectName = evt.target.value;
   if (effectName !== 'none') {
     effect = EFFECTS[effectName];
@@ -100,6 +107,8 @@ effectsList.addEventListener('change', (evt) => {
   } else {
     effectReset();
   }
-});
+};
+
+effectsList.addEventListener('change', onEffectListChange);
 
 export {effectReset};
