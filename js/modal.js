@@ -12,13 +12,12 @@ const enableFormEsc = () => document.addEventListener('keydown', onEscKeyDown);
 const disabledFormEsc = () => document.removeEventListener('keydown', onEscKeyDown);
 
 function onEscKeyDown(evt) {
-  if (isEsc && activeModal) {
+  if (isEsc(evt) && activeModal) {
     // если фокус в поле комментария или хештега — ничего не делаем
-    if (evt.target.classList.contains('text__description') ||
-      evt.target.classList.contains('text__hashtags')) {
-      return;
+    if (!evt.target.classList.contains('text__description') &&
+      !evt.target.classList.contains('text__hashtags')) {
+      closeModal(activeModal);
     }
-    closeModal(activeModal);
   }
 }
 
