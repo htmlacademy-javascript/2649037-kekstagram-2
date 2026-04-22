@@ -17,7 +17,8 @@ const uploadButtonCancel = uploadForm.querySelector('.img-upload__cancel');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 const hashTagInput = uploadForm.querySelector('.text__hashtags');
 const commentTextArea = uploadForm.querySelector('.text__description');
-const previewImg = document.querySelector('.img-upload__preview img');
+const previewImg = uploadForm.querySelector('.img-upload__preview img');
+const previewEffects = uploadForm.querySelectorAll('.effects__preview');
 
 //Настраиваем состояние кнопки отправки для разных условий
 const submitButtonState = () => {
@@ -52,7 +53,7 @@ const setUserFormSubmit = (onSuccess) => {
           showDataMessage('error'); // показываем ошибку
         })
         .finally(() => {
-          unblockSubmitButton(); // только разблокировка
+          unblockSubmitButton(); // разблокировка
         });
     }
   });
@@ -67,6 +68,10 @@ const onFileInputChange = () => {
 
   if (matches) {
     previewImg.src = URL.createObjectURL(file);
+    // Загружаем превью фильтров
+    previewEffects.forEach((preview) => {
+      preview.style.backgroundImage = `url(${previewImg.src})`;
+    });
     openModal(overlay);
   } else {
     showLoadDataError();

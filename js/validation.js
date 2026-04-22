@@ -9,7 +9,7 @@ const commentTextArea = uploadForm.querySelector('.text__description');
 
 //настраиваем Пристин
 let errorMessage = '';
-const error = () => errorMessage;
+const getErrorMessage = () => errorMessage;
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -66,7 +66,7 @@ function validateHashTags(value) {
 pristine.addValidator(
   hashTagInput,
   validateHashTags,
-  error
+  getErrorMessage
 );
 
 pristine.addValidator(

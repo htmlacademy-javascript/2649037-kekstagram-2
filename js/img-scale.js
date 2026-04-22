@@ -27,7 +27,7 @@ const applyScale = (isPlus) => {
 };
 
 const scaleReset = () => {
-  scaleValue.value = SCALE.DEFAULT;
+  scaleValue.value = `${SCALE.DEFAULT}%`;
   uploadImg.style.transform = `scale(${SCALE.DEFAULT / 100})`;
 };
 

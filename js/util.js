@@ -1,4 +1,4 @@
-const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 const isEsc = (evt) => evt.key === 'Escape';
 
 function debounce(callback, timeoutDelay = 500) {
@@ -19,12 +19,12 @@ function debounce(callback, timeoutDelay = 500) {
   };
 }
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
+function shuffleArray(data) {
+  for (let i = data.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    [data[i], data[j]] = [data[j], data[i]];
   }
-  return array;
+  return data;
 }
 
-export { getRandomInt, isEsc, debounce, shuffleArray };
+export { isEsc, debounce, shuffleArray };
