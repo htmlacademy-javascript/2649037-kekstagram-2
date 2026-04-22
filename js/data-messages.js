@@ -46,7 +46,9 @@ const showDataMessage = (state) => {
     document.removeEventListener('click', onOutsideClick);
   }
 
-  button.addEventListener('click', closeMessage);
+  const onButtonClick = () => closeMessage();
+
+  button.addEventListener('click', onButtonClick);
   document.addEventListener('keydown', onEscKeyDown);
   document.addEventListener('click', onOutsideClick);
 };
